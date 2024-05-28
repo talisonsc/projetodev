@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Faz a medida vir da borda, para manter informações adicionadas na caixa */
+}
+
+:root /* definir a classe no html me pemite trocar o tema de forma simples*/ {
+  --text-color: white;
+  --bg-url: url(./assets/bg-mobile.jpg);
+  --border-color: rgba(255, 255, 255, 0.5);
+  --background-color: rgba(255, 255, 255, 0.05);
+  --background-hover: rgba(255, 255, 255, 0.02);
+  --social-color: rgba(255, 255, 255, 0.2);
+  --switch-bg-url: url(./assets/moon-stars.svg);
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --border-color: rgba(0, 0, 0, 0.5);
+  --background-color: rgba(0, 0, 0, 0.05);
+  --background-hover: rgba(0, 0, 0, 0.02);
+  --social-color: rgba(0, 0, 0, 0.1);
+  --switch-bg-url: url(./assets/sun.svg);
+}
+body {
+  /*
+  background-image: url(./assets/bg-mobile.jpg);
+  background-repeat: no-repeat;
+  position: top center;
+  background: cover;
+  */
+
+  /* background image repeat position/size */
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
+}
+
+body * {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+}
+
+/* caixa principal */
+#container {
+  width: 100%;
+  max-width: 588px;
+  margin: auto; /* se colocar duas opções, a primeira altera em cima e em baixo e a segunda nos lados */
+  padding-top: 56px;
+}
+
+/*profile pai permite alterar o local de itens com display inline
+caso precise alterar posição de itens inline, deve mudar o display para block*/
+#profile {
+  text-align: center;
+  padding: 24px;
+}
+
+/* imagem tem por padrão o display inline... não permiti aplicar margin */
+#profile img {
+  width: 112px;
+}
+
+/*Configurações da fonte, peso(negrito), altura da linha e tamanho da fonte, por padrão a fonte tem um tamanho de 16px */
+#profile p {
+  font-weight: 500;
+  line-height: 24px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+/*switch */
+#switch {
+  position: relative; /* vai deixar tudo que estiver em position absolute, dentro da caixa, só poderá se mover dentro da caixa especificada */
+  width: 64px;
+  margin: 4px auto; /* alinhar elementos na tela com display block é assim */
+}
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+  /* position absolute vai permitir um icone sobrepor um "andar", junto com z-index consigo escolher o andar */
+  position: absolute;
+  z-index: 1;
+  animation: slide-back 0.2s;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.light #switch button {
+  left: 50%;
+  animation: slide-in 0.2s forwards;
+}
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--background-color);
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+ul {
+  list-style: none;
+  display: flex; /* Deixa os elementos flexiveis, se ajustarão na tela */
+  flex-direction: column; /* Muda a forma como é  encaixado os itens */
+  gap: 8px; /*Adiciona um espaço entre os conteudos */
+  padding: 24px 0px;
+}
+
+ul li a {
+  display: flex;
+  align-items: center; /* alinha ao meio na horizontal */
+  justify-content: center; /*alinha ao meio na vertical */
+  padding: 16px 24px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  gap: 16px;
+  backdrop-filter: blur(4px); /* Adiciona um leve embaçado no item */
+  -webkit-backdrop-filter: blur(4px); /* Suporte para alguns navegadores */
+  text-decoration: none;
+  font-weight: 500; /* Obscuridade da fonte ou negrito */
+  font-size: 16px;
+  transition: background 0.2s;
+}
+/* pseudo-selector */
+ul li a:hover {
+  background: var(--background-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+#social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-size: 24px;
+}
+#social-links a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+#social-links a:hover {
+  background: var(--social-color);
+}
+
+foster {
+  display: block;
+  font-size: 14px;
+  padding: 24px 0;
+  text-align: center;
+}
+
+#switch :hover {
+  border: 2px solid var(--border-color);
+}
+/* media queries, regras para serem executadas 
+muda a imagem de fundo ao atingir largura (width) maior que 700px*/
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+
+/*animação criada, deve ser adicionada dentro do elemento que deseja animar, com o valor animation */
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    right: 0;
+  }
+  to {
+    right: 50%;
+  }
+}
